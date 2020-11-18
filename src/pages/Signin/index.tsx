@@ -1,10 +1,10 @@
-import React, { useCallback, useRef, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Container, Content, Background } from './styles';
-import { AuthContext } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 
 import Input from '../../components/input';
 import Button from '../../components/button';
@@ -20,9 +20,7 @@ interface SignInCredentials {
 const Signin: React.FunctionComponent = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { user, signIn } = useContext(AuthContext);
-
-  console.log(user);
+  const { signIn } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: SignInCredentials) => {
