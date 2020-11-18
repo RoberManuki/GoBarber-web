@@ -19,6 +19,17 @@ interface AuthContextDTO {
 
 const AuthContext = createContext<AuthContextDTO>({} as AuthContextDTO);
 
+function useAuth(): AuthContextDTO {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    // no user
+    throw new Error('useAuth requires an AuthProvider!');
+  }
+  return context;
+}
+
+// Component <AuthProvider user: AuthState />
 const AuthProvider: React.FunctionComponent = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@GoBarber:token');
@@ -57,14 +68,5 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-function useAuth(): AuthContextDTO {
-  const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error('useAuth requires an AuthProvider!');
-  }
-  return context;
-}
 
 export { AuthProvider, useAuth };
