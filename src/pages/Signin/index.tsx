@@ -4,7 +4,8 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Container, Content, Background } from './styles';
-import { useAuth } from '../../hooks/AuthContext';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
 import Input from '../../components/input';
 import Button from '../../components/button';
@@ -21,6 +22,7 @@ const Signin: React.FunctionComponent = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: SignInCredentials) => {
@@ -36,7 +38,7 @@ const Signin: React.FunctionComponent = () => {
 
         await schema.validate(data, { abortEarly: false });
 
-        signIn({
+        await signIn({
           email: data.email,
           password: data.password,
         });
@@ -45,10 +47,14 @@ const Signin: React.FunctionComponent = () => {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
         }
-        // disparar toast
+        addToast({
+          type: 'error',
+          title: 'Authentication error',
+          description: 'Invalid credentials',
+        });
       }
     },
-    [signIn],
+    [signIn, addToast],
   );
 
   return (
