@@ -1,20 +1,19 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyle from './styles/global';
-import Signin from './pages/Signin';
-// import Signup from './pages/Signup';
+import Routes from './routes';
 
 import AppProvider from './hooks';
 
 const App: React.FunctionComponent = () => {
   return (
-    <>
+    <Router>
       <AppProvider>
-        <Signin />
-        {/* <Signup /> */}
+        <Routes />
       </AppProvider>
 
       <GlobalStyle />
-    </>
+    </Router>
   );
 };
 
