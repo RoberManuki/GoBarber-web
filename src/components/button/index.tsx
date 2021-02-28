@@ -2,13 +2,15 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 import { Container } from './styles';
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  loading?: boolean;
+};
 
 // eslint-disable-next-line prettier/prettier
-const Button: React.FunctionComponent<ButtonProps> = ({children , ...rest}) => (
+const Button: React.FunctionComponent<ButtonProps> = ({children, loading, ...rest}) => (
   <>
     <Container type="button" {...rest}>
-      {children}
+      {loading ? 'Carregando...' : children}
     </Container>
   </>
 );
