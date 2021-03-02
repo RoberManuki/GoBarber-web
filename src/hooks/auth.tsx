@@ -1,8 +1,15 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
 
+interface User {
+  id: string;
+  name: string;
+  // eslint-disable-next-line camelcase
+  avatar_url: string;
+}
+
 interface AuthState {
-  user: object;
+  user: User;
   token: string;
 }
 
@@ -12,7 +19,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextDTO {
-  user: object;
+  user: User;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
 }
