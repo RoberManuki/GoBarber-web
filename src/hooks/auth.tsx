@@ -36,13 +36,14 @@ function useAuth(): AuthContextDTO {
   return context;
 }
 
-// Component <AuthProvider user: AuthState />
 const AuthProvider: React.FunctionComponent = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@GoBarber:token');
     const user = localStorage.getItem('@GoBarber:user');
 
     if (token && user) {
+      api.defaults.headers.authorization = `Bearer ${token}`; // F5 refresh
+
       return { token, user: JSON.parse(user) };
     }
 
@@ -58,6 +59,8 @@ const AuthProvider: React.FunctionComponent = ({ children }) => {
 
     localStorage.setItem('@GoBarber:token', token);
     localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);
