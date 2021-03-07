@@ -99,16 +99,17 @@ const Dashboard: React.FunctionComponent = () => {
 
   useEffect(() => {
     api
-    .get(`/appointments/me`, {
-        params: { year: selectedDate.getFullYear(),
-        month: selectedDate.getMonth() + 1,
-        day: selectedDate.getDate(),
-      },
-    })
-    .then(response => {
-      setAppointments(response.data);
-      console.log(response.data);
-    });
+      .get('/appointments/me', {
+        params: {
+          year: selectedDate.getFullYear(),
+          month: selectedDate.getMonth() + 1,
+          day: selectedDate.getDate(),
+        },
+      })
+      .then(response => {
+        setAppointments(response.data);
+        console.log(response.data);
+      });
   }, [selectedDate]);
 
   return (
