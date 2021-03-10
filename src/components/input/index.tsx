@@ -14,11 +14,12 @@ import { Container, Error } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  containerStyle?: React.CSSProperties;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
 // eslint-disable-next-line prettier/prettier
-const Input: React.FunctionComponent<InputProps> = ({name, icon: Icon, ...rest}) => {
+const Input: React.FunctionComponent<InputProps> = ({name, containerStyle = {}, icon: Icon, ...rest}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
@@ -44,7 +45,12 @@ const Input: React.FunctionComponent<InputProps> = ({name, icon: Icon, ...rest})
 
   return (
     <>
-      <Container isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
+      <Container
+        style={containerStyle}
+        isErrored={!!error}
+        isFilled={isFilled}
+        isFocused={isFocused}
+      >
         {Icon && <Icon size={20} />}
         <input
           onBlur={handleInputBlur}
