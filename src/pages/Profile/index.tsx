@@ -42,13 +42,13 @@ const Profile: React.FunctionComponent = () => {
             .email('Digite um email válido!'),
           old_password: Yup.string(),
           password: Yup.string().when('old_password', {
-            is: val => !!val.lenth,
+            is: val => !!val.length,
             then: Yup.string().required('Campo obrigatório'),
             otherwise: Yup.string(),
           }),
           password_confirmation: Yup.string()
             .when('old_password', {
-              is: val => !!val.lenth,
+              is: val => !!val.length,
               then: Yup.string().required('Campo obrigatório'),
               otherwise: Yup.string(),
             })
