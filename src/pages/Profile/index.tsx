@@ -98,11 +98,11 @@ const Profile: React.FunctionComponent = () => {
         addToast({
           type: 'error',
           title: 'Update error!',
-          description: 'Cannot uupdate profile data.',
+          description: 'Cannot update profile data.',
         });
       }
     },
-    [addToast, history],
+    [addToast, history, updateUser],
   );
 
   const handleAvatarChange = useCallback(
